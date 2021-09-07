@@ -12,7 +12,7 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        required: true,
+        required: false,
         validate(val) {
             if(!validator.isEmail(val)) {
                 throw new Error("Email is not valid");
@@ -32,7 +32,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        required: true,
+        required: false,
         default: "employee",
     }
 })

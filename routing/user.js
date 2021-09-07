@@ -47,7 +47,6 @@ router.post("/login", async (req, res) => {
 
 // Get all users
 router.get("/", authenticate, async (req, res) => {
-
     try {
         const user = await User.find();
         res.send(user).status(201);
@@ -101,7 +100,7 @@ router.post("/authenticate", async (req, res) => {
 })
 
 // Create a new user
-router.post("/", authenticate, async (req, res) => {
+router.post("/", async (req, res) => {
     try {
 
         const user = new User(req.body);
