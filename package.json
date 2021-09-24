@@ -21,6 +21,7 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "jest": "^27.1.0",
     "supertest": "^6.1.6"
   }

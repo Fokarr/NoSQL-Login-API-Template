@@ -1,12 +1,14 @@
 const request = require("supertest");
 const app = require("../app");
+const chalk = require("chalk");
 const server = require("../server");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-// Close connection after test is done
+// Close connections after test is done
 afterAll(async () => await server.close());
 afterAll(async () => await mongoose.disconnect());
+// afterAll(async () => console.log(chalk.green("User test finished")))
 
 let token;
 let id;
@@ -19,9 +21,8 @@ beforeAll(async () => {
         })
 })
 
-// Root Path
 describe("Test the GET user login route", () => {
-    test("It should response all the user data and a token", () => {
+    test("It should return all the user data and a token", () => {
         return request(app)
             .post("/users/login")
             .send({name: process.env.ACCOUNT_USERNAME, password: process.env.ACCOUNT_USERNAME_PW})
@@ -30,8 +31,7 @@ describe("Test the GET user login route", () => {
                 // Assertions about the response
                 expect(response.body).toMatchObject({
                     user: {
-                        name: process.env.ACCOUNT_USERNAME,
-                        email: 'jarmof135@gmail.com',
+                        name: process.env.ACCOUNT_USERNAME, // "Tester123"
                     },
                 })
             });
@@ -39,7 +39,7 @@ describe("Test the GET user login route", () => {
 });
 
 describe("Update the User", () => {
-    test("It should response the User with the new Data", () => {
+    test("It should return the user with the new data", () => {
         return request(app)
             .patch(`/users/${id}`)
             .set('Authorization', `Bearer ${token}`)
@@ -53,7 +53,7 @@ describe("Update the User", () => {
 })
 
 describe("Update User Date to the old name", () => {
-    test("It should return the User with the old Data", () => {
+    test("It should return the user with the old data", () => {
         return request(app)
             .patch(`/users/${id}`)
             .set('Authorization', `Bearer ${token}`)
@@ -65,9 +65,3 @@ describe("Update User Date to the old name", () => {
             })
     })
 })
-
-/*describe("Delete a user by ID", () => {
-    test("It should response in Error Object with a Authorization Message", () => {
-
-    })
-})*/

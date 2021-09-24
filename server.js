@@ -8,11 +8,11 @@ const port = 3001;
 require("dotenv").config();
 
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log(chalk.green.bold("Connected to Database"));
+    //console.log(chalk.green.bold("Connected to Database"));
 });
 
 let server = app.listen(port, () => {
-    console.log("Server starting on Port: " + port);
+    //console.log("Server starting on Port: " + port);
 })
 
 module.exports = server;
